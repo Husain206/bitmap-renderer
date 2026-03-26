@@ -89,3 +89,57 @@ void draw_spider(Pixel img[HEIGHT][WIDTH]){
 }
 
 
+void project_cube(vec3 cube[8], int projected[8][2]) {
+  float scale = WIDTH / 4.f;
+  float distance = 2.5f; // distance from camera
+  for (int i = 0; i < 8; i++) {
+    float factor = distance / (distance - cube[i].z); // perspective
+    projected[i][0] = (int)(cube[i].x * scale * factor + WIDTH / 2.f);
+    projected[i][1] = (int)(cube[i].y * scale * factor + HEIGHT / 2.f);
+  }
+}
+
+void rotate_x(vec3 &v, float angle) {
+  float rad = angle * 3.14159265f / 180.0f;
+  float y = v.y;
+  float z = v.z;
+  v.y = y * cos(rad) - z * sin(rad);
+  v.z = y * sin(rad) + z * cos(rad);
+}
+
+void rotate_y(vec3 &v, float angle) {
+  float rad = angle * 3.14159265f / 180.0f;
+  float x = v.x;
+  float z = v.z;
+  v.x = x * cos(rad) + z * sin(rad);
+  v.z = -x * sin(rad) + z * cos(rad);
+}
+
+void rotate_z(vec3 &v, float angle) {
+  float rad = angle * 3.14159265f / 180.0f;
+  float x = v.x;
+  float y = v.y;
+  v.x = x * cos(rad) - y * sin(rad);
+  v.y = x * sin(rad) + y * cos(rad);
+}
+
+void rotate_cube(vec3 cube[8], float angleX, float angleY, float angleZ) {
+  for (int i = 0; i < 8; i++) {
+    rotate_x(cube[i], angleX);
+    rotate_y(cube[i], angleY);
+    rotate_z(cube[i], angleZ);
+  }
+}
+
+void draw_cube(Pixel img[HEIGHT][WIDTH], vec3 cube[8], int edges[12][2],
+               Pixel colors[12]) {
+  int projected[8][2];
+  project_cube(cube, projected);
+
+  for (int i = 0; i < 12; i++) {
+    int a = edges[i][0];
+    int b = edges[i][1];
+    draw_line(img, projected[a][0], projected[a][1], projected[b][0],
+              projected[b][1], colors[i]);
+  }
+}

@@ -16,6 +16,10 @@ int main(void) {
     }
   }
 
+  vec3 cube_rot[8];
+  for (int i = 0; i < 8; i++)
+    cube_rot[i] = cube[i];
+  draw_cube(img, cube_rot, edges, edge_colors);
 
   draw_spider(img);
   for (int y = HEIGHT - 1; y >= 0; y--) {

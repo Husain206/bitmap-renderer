@@ -77,3 +77,27 @@ void draw_line(Pixel img[HEIGHT][WIDTH], int x0, int y0, int x1, int y1,
 void draw_spider(Pixel img[HEIGHT][WIDTH]);
 
 
+struct vec3 {
+  float x, y, z;
+};
+
+static vec3 cube[8] = {
+    {-1, -1, -1}, {1, -1, -1}, {1, 1, -1}, {-1, 1, -1},
+    {-1, -1, 1},  {1, -1, 1},  {1, 1, 1},  {-1, 1, 1},
+};
+
+static int edges[12][2] = {{0, 1}, {1, 2}, {2, 3}, {3, 0}, {4, 5}, {5, 6},
+                           {6, 7}, {7, 4}, {0, 4}, {1, 5}, {2, 6}, {3, 7}};
+
+static Pixel edge_colors[12] = {RED,  GREEN, BLUE, WHITE, RED,  GREEN,
+                                BLUE, WHITE, RED,  GREEN, BLUE, WHITE};
+
+void project_cube(vec3 cube[8], int projected[8][2]);
+void rotate_x(vec3 &v, float angle);
+void rotate_y(vec3 &v, float angle);
+void rotate_z(vec3 &v, float angle);
+void rotate_cube(vec3 cube[8], float angleX, float angleY, float angleZ);
+void draw_cube(Pixel img[HEIGHT][WIDTH], vec3 cube[8], int edges[12][2],
+               Pixel colors[12]);
+
+
