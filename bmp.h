@@ -70,3 +70,10 @@ struct Pixel {
 #pragma pack(pop) // restore previous alignment rules
 
 void regular_write(Pixel img[HEIGHT][WIDTH]);
+void draw_square(Pixel img[HEIGHT][WIDTH], int x0, int y0, int x1, int y1, Pixel color);
+void draw_circle(Pixel img[HEIGHT][WIDTH], int radius, int x0, int y0, Pixel color);
+void draw_line(Pixel img[HEIGHT][WIDTH], int x0, int y0, int x1, int y1,
+               Pixel color);
+void draw_spider(Pixel img[HEIGHT][WIDTH]);
+
+

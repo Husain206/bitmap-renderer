@@ -16,7 +16,8 @@ int main(void) {
     }
   }
 
-  regular_write(img);
+
+  draw_spider(img);
   for (int y = HEIGHT - 1; y >= 0; y--) {
     for (int x = 0; x < WIDTH; x++) {
    fout.write((char *)&img[y][x], 3);
